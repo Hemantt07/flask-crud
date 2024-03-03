@@ -1,0 +1,41 @@
+{% extends './layout.html' %}
+{% block title %}All Blog Posts {% endblock title %}
+{% block content %}
+
+<div class="container my-5">
+    <h2 class="mb-5 text-center">Blog Posts</h2>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Image</th>
+                    <th class="text-center">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Sample Blog Title 1</td>
+                    <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
+                    <td><img src="https://via.placeholder.com/150" alt="Image"></td>
+                    <td class="text-center">
+                        <button class="btn btn-secondary">Edit</button>
+                        <button class="btn btn-danger">Delete</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Sample Blog Title 2</td>
+                    <td>Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</td>
+                    <td><img src="https://via.placeholder.com/150" alt="Image"></td>
+                    <td class="text-center">
+                        <button class="btn btn-secondary">Edit</button>
+                        <button class="btn btn-danger">Delete</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock content %}

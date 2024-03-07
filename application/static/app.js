@@ -24,5 +24,5 @@ const ajaxFormSubmit = (form) => {
 // } )
 
 $(document).ready( function () {
-    $('#myTable').DataTable();
+    // $('#myTable').DataTable();
 } );

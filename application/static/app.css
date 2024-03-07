@@ -9,6 +9,10 @@ body {
     padding-bottom: 80px;
 }
 
+header {
+    z-index: 99;
+}
+
 #loaderWrap {
     background-color: #0000008f;
     display: none;

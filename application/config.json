@@ -1,0 +1,14 @@
+{
+    "params": {
+        "local": true,
+        "secret_key": "b2945762b9d4b39e190b1c0a38099f7ced53624a",
+        "local_mongo_uri": "mongodb://localhost:27017/Flask",
+        "upload_path": "/application/static/uploads",
+        "mail_server": "sandbox.smtp.mailtrap.io",
+        "mail_port" : 2525,
+        "mail_username" : "583e5bc9893a58",
+        "mail_password" : "7d5d4d7079a6bc",
+        "mail_use_tls" : true,
+        "mail_use_ssl" : false
+    }
+}

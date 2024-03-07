@@ -10,12 +10,31 @@ blog_bp = Blueprint('blog_bp', __name__)
 
 @blog_bp.route('/')
 def index():
-    blogs = list(db.blogs.find({}))
+    # Get all posts
+    offset = 1
+    page = request.args.get('page')
+    if (not str(page).isnumeric()):
+        page = 0
+    page = int(page)
+
+    blogs = list(db.blogs.find({}).skip(page).limit(1))
+    last = len(list(db.blogs.find({})))/1
+    
+    if (page == 0):
+        prev = None
+        nextpage = "?page=" + str(page+1)
+    elif (page == last-1):
+        prev = "?page=" + str(page-1)
+        nextpage = None
+    else:
+        prev = "?page=" + str(page-1)
+        nextpage = "?page=" + str(page+1)
+
     for blog in blogs:
         if '_id' in blog:
             blog['_id'] = str(blog['_id'])
 
-    return render_template('blogs/index.html', blogs=blogs)
+    return render_template('blogs/index.html', blogs=blogs, prev=prev, nextpage=nextpage)
 
 @blog_bp.route('/create', methods=['POST', 'GET'])
 def create():

@@ -1,6 +1,6 @@
 {% block header %}
 
-<header>
+<header class="position-sticky top-0 z-index-3">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
           <a class="navbar-brand" href="{{ url_for( 'blog_bp.index' ) }}">CRUD using <b>Flask</b></a>
@@ -15,16 +15,16 @@
               <li class="nav-item">
                 <a class="nav-link" href="{{ url_for( 'blog_bp.create' ) }}">Create Posts</a>
               </li>
-              <li class="nav-item">
+              <!-- <li class="nav-item">
                 <a class="nav-link" href="#">Profile</a>
-              </li>
+              </li> -->
               <li class="nav-item">
                 <a class="nav-link" href="{{ url_for( 'user_bp.register' ) }}">Log In/Register</a>
               </li>
             </ul>
           </div>
         </div>
-      </nav>
+    </nav>
 </header>
 
 {% endblock header %}

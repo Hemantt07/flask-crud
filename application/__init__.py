@@ -1,19 +1,19 @@
-from flask import Flask
+from flask import Flask, render_template, json, jsonify
 from flask_pymongo import PyMongo
+import os
 
 app = Flask(__name__)
+
 app.config["SECRET_KEY"] = "b2945762b9d4b39e190b1c0a38099f7ced53624a"
-app.config["MONGO_URI"] = "mongodb+srv://hemantdhiman:i4l2yR5orzBCEvjV@flask.3mooitq.mongodb.net/?retryWrites=true&w=majority"
+app.config["MONGO_URI"] = 'mongodb://localhost:27017/Flask'
+upload_dir = os.getcwd() + '/application/static/uploads'
+app.config['UPLOAD_FOLDER'] = upload_dir
 
-# mongodb client
-mongodb_client = PyMongo(app)
-mongo_database = mongodb_client.db
+mongo = PyMongo(app)
+db = mongo.db
 
-try:
-    # Test database connection
-    mongodb_client.cx.server_info()
-    print("Connected to MongoDB")
-except Exception as e:
-    print("Error connecting to MongoDB:", e)
+from application import blueprints
 
-from application import routes
+@app.route('/')
+def index():
+    return render_template('layout.html')

@@ -6,4 +6,32 @@
 
 body {
     min-height: 100vh;
+    padding-bottom: 80px;
+}
+
+#loaderWrap {
+    background-color: #0000008f;
+    display: none;
+}
+
+#loaderWrap .loader {
+    border: 4px solid #ccc;
+    border-bottom-color: transparent;
+    width: 50px;
+    height: 50px;
+    animation: spin infinite .8s  linear;
+}
+
+#myTable_wrapper label {
+    text-transform: capitalize;
+    margin-left: 8px;
+}
+
+div.dt-container .dt-search input:focus-visible {
+    outline: none;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
 }

@@ -3,20 +3,23 @@
 <header>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
-          <a class="navbar-brand" href="{{ url_for('get_blogs') }}">CRUD using <b>Flask</b></a>
+          <a class="navbar-brand" href="{{ url_for( 'blog_bp.index' ) }}">CRUD using <b>Flask</b></a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse flex-grow-0" id="navbarNav">
             <ul class="navbar-nav">
               <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('get_blogs') }}">All Blogs</a>
+                <a class="nav-link" href="{{ url_for( 'blog_bp.index' ) }}">All Posts</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('add_blog') }}">Create Blog</a>
+                <a class="nav-link" href="{{ url_for( 'blog_bp.create' ) }}">Create Posts</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="#">Profile</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{{ url_for( 'user_bp.register' ) }}">Log In/Register</a>
               </li>
             </ul>
           </div>

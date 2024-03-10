@@ -1,0 +1,18 @@
+{% extends './layout.html' %}
+{% block title %}Open AI {% endblock title %}
+{% block content %}
+
+<div class="container my-5">
+    <h2 class="mb-5 text-center">Have a chat with <b>Open AI</b></h2>
+    
+    <form action="{{ url_for( 'generate_text_withai' ) }}" method="post" class="w-50 m-auto" id="openai-form">
+        {% include 'partials/flash.html' %}
+        <textarea name="prompt" id="prompt" class="form-control text-left mb-3" rows="5" placeholder="Enter you prompt here"></textarea>
+        <div class="text-center">
+            <button type="submit" class="btn btn-secondary">Generate Response</button>
+        </div>
+    </form>
+    <div id="output" class="w-50 mt-4 m-auto"></div>
+</div>
+
+{% endblock content %}

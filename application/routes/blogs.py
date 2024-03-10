@@ -4,39 +4,34 @@ from werkzeug.utils import secure_filename
 from datetime import datetime
 from bson import ObjectId
 import os
+import math
 from application import app
+import flask_login
 
 blog_bp = Blueprint('blog_bp', __name__)
 
 @blog_bp.route('/')
 def index():
-    # Get all posts
-    offset = 1
-    page = request.args.get('page')
-    if (not str(page).isnumeric()):
-        page = 0
-    page = int(page)
-
-    blogs = list(db.blogs.find({}).skip(page).limit(1))
-    last = len(list(db.blogs.find({})))/1
-    
-    if (page == 0):
-        prev = None
-        nextpage = "?page=" + str(page+1)
-    elif (page == last-1):
-        prev = "?page=" + str(page-1)
-        nextpage = None
-    else:
-        prev = "?page=" + str(page-1)
-        nextpage = "?page=" + str(page+1)
+    blogs = list(db.blogs.find({}))
 
     for blog in blogs:
         if '_id' in blog:
             blog['_id'] = str(blog['_id'])
 
-    return render_template('blogs/index.html', blogs=blogs, prev=prev, nextpage=nextpage)
+    if flask_login.current_user.is_authenticated:
+        return render_template('blogs/index.html', blogs=blogs)
+    else:
+        return render_template('blogs/guest-view.html', blogs=blogs)
+    
+@blog_bp.route("/view/<id>")
+def view_blog(id):
+    blog = db.blogs.find_one_or_404({"_id": ObjectId(id)})
+    blog['_id'] = str(blog['_id'])
+    return render_template( 'blogs/view.html', blog=blog )
+    
 
 @blog_bp.route('/create', methods=['POST', 'GET'])
+@flask_login.login_required
 def create():
     if request.method == "POST":
         title = request.form.get('name')
@@ -66,6 +61,7 @@ def create():
     return render_template( 'blogs/create.html' )
 
 @blog_bp.route("/delete_blog/<id>")
+@flask_login.login_required
 def delete_blog(id):
     db.blogs.find_one_and_delete({"_id": ObjectId(id)})
     flash("Blog successfully deleted", "danger")
@@ -73,6 +69,7 @@ def delete_blog(id):
 
 
 @blog_bp.route("/update_blog/<id>", methods = ['POST', 'GET'])
+@flask_login.login_required
 def update_blog(id):
     if request.method == "POST":
         title = request.form.get('name')

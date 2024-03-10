@@ -1,0 +1,27 @@
+{% extends './layout.html' %}
+{% block title %}Login {% endblock title %}
+{% block content %}
+
+<div class="container my-5">
+    <h2 class="mb-5 text-center">Login</h2>
+    
+    <form action="{{ url_for( 'auth_bp.login' ) }}" method="post" class="login-user w-50 m-auto">
+        {% include 'partials/flash.html' %}
+        <div class="form-group mb-3">
+            <label for="email" class="form-label">Email address</label>
+            <input type="email" class="form-control" id="email" name="email" placeholder="Enter email">
+        </div>
+        <div class="form-group mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+        </div>
+        <div class="text-center">
+            <button type="submit" class="btn btn-secondary">Login</button>
+        </div>
+    </form>
+    <div class="text-center mt-3">
+        <a href="{{ url_for('auth_bp.register') }}" class="btn-link text-decoration-none">Do not have an account ? Register</a>
+    </div>
+</div>
+
+{% endblock content %}

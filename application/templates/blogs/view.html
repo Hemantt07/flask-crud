@@ -1,0 +1,22 @@
+{% extends './layout.html' %}
+{% block title %}Post {% endblock title %}
+{% block content %}
+
+<div class="container my-5">
+    {% include 'partials/flash.html' %}
+    <h2 class="m-0">{{ blog['name'] }}</h2>
+    <p>
+        <small class="text-muted">
+            Created on {{ blog['date_created'].strftime('%d-%m-%Y') }}
+        </small>
+    </p>
+    <img class="img-fluid my-3" 
+        src="{{ url_for('static', filename='uploads/' + blog['image']) }}" 
+        alt="{{ blog['name'] }}" 
+        onerror="this.src='https://via.placeholder.com/1200'"">
+    <p class="text-secondary">
+        {{ blog['description'] }}
+    </p>
+</div>
+
+{% endblock content %}

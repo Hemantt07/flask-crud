@@ -1,0 +1,44 @@
+{% extends './layout.html' %}
+{% block title %}Your Profile {% endblock title %}
+{% block head %} 
+    {{super()}}
+    <style>
+        .profile-card {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #fff;
+        }
+        .profile-img {
+            max-width: 200px;
+            border-radius: 50%;
+            margin: auto;
+            display: block;
+        }
+    </style>
+{% endblock %} 
+
+{% block content %}
+
+<div class="container my-5">
+    <h2 class="mb-5 text-center">Profile</h2>
+    
+    <div class="profile-card">
+        <img src="https://via.placeholder.com/200" alt="Profile Picture" class="profile-img">
+        <h2 class="text-center mt-3">{{ current_user.name }}</h2>
+        <p class="text-center">{{ current_user.role }}</p>
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <h4 class="text-center mb-3">Personal Info</h4>
+                <p class="text-center"><strong>Email:</strong> <a href="mailto:{{ current_user.email }}">{{ current_user.email }}</a></p>
+            </div>
+        </div>
+        <div class="text-center">
+            <button class="btn btn-secondary">Edit Profile</button>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

@@ -1,2 +1,2 @@
 from .blogs import blog_bp
-from .users import user_bp
+from .auth import auth_bp

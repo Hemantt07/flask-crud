@@ -35,6 +35,66 @@ div.dt-container .dt-search input:focus-visible {
     outline: none;
 }
 
+.card {
+    cursor: pointer;
+}
+
+a:hover,
+a {
+    color: inherit;
+}
+
+p.card-text {
+    max-height: calc(5 * 1.2em);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: pre-line;
+}
+
+.alert-error {
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+    padding: .75rem 1.25rem;
+    margin-bottom: 1rem;
+    border: 1px solid transparent;
+    border-radius: .25rem;
+}
+
+.alert-message {
+    color: #004085;
+    background-color: #cce5ff;
+    border-color: #b8daff;
+    padding: .75rem 1.25rem;
+    margin-bottom: 1rem;
+    border: 1px solid transparent;
+    border-radius: .25rem;
+}
+
+.w-50 {
+    min-width: 400px;
+    max-width: 95%;
+}
+
+#myTable {
+    min-width: 1000px;
+}
+
+::-webkit-scrollbar {
+    width: 4px;
+    height: 0px;
+    background-color: #cfcccc;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #555;
+    border-radius: 1px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: #cfcccc;
+}
+
 @keyframes spin {
     from { transform: rotate(0deg); }
     to { transform: rotate(360deg); }

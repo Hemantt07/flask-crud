@@ -5,6 +5,8 @@ from bson import ObjectId
 from ..models import User
 from flask_login import login_required, login_user, logout_user
 from application import bcrypt
+from flask_mail import Message
+from ..mail_config import send_registration_email
 
 auth_bp = Blueprint('auth_bp', __name__)
 
@@ -34,6 +36,7 @@ def register():
                 "role": 'User',
                 "date_created": datetime.utcnow()
             })
+            send_registration_email(email, name=name)
 
             flash("You have registered successfully!", "success")
             return redirect(url_for('auth_bp.login'))

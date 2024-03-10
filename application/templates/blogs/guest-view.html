@@ -17,7 +17,10 @@
                                 <div class="card-body">
                                 <h5 class="card-title">{{ blog['name'] }}</h5>
                                 <p class="card-text">{{ blog['description'] }}</p>
-                                <p class="card-text"><small class="text-muted">Created on {{ blog['date_created'].strftime('%d-%m-%Y') }}</small></p>
+                                <p class="mb-0 d-flex justify-content-between">
+                                    <small class="text-muted">{{ blog['date_created'].strftime('%d/%m/%Y') }}</small>
+                                    <small class="text-muted">{{ blog['created_by'] }}</small>
+                                </p>
                                 </div>
                             </div>
                         </a>

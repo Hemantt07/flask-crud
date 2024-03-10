@@ -14,6 +14,9 @@
               </li>
               {% if current_user.is_authenticated %}
                 <li class="nav-item">
+                  <a class="nav-link" href="{{ url_for( 'blog_bp.my_blogs' ) }}">My Blogs</a>
+                </li>
+                <li class="nav-item">
                   <a class="nav-link" href="{{ url_for( 'blog_bp.create' ) }}">Create Posts</a>
                 </li>
                 <li class="nav-item">

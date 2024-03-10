@@ -9,6 +9,7 @@ bcrypt = Bcrypt(app)
 
 app.config["SECRET_KEY"] = "b2945762b9d4b39e190b1c0a38099f7ced53624a"
 app.config["MONGO_URI"] = 'mongodb://localhost:27017/Flask'
+# app.config["MONGO_URI"] = 'mongodb+srv://hemantdhiman:i4l2yR5orzBCEvjV@flask.3mooitq.mongodb.net/?retryWrites=true&w=majority'
 upload_dir = os.getcwd() + '/application/static/uploads'
 
 app.config['UPLOAD_FOLDER'] = upload_dir

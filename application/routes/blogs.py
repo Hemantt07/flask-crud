@@ -4,10 +4,8 @@ from werkzeug.utils import secure_filename
 from datetime import datetime
 from bson import ObjectId
 import os
-import math
 from application import app
-import flask_login
-
+from flask_login import current_user, login_required
 blog_bp = Blueprint('blog_bp', __name__)
 
 @blog_bp.route('/')
@@ -17,12 +15,21 @@ def index():
     for blog in blogs:
         if '_id' in blog:
             blog['_id'] = str(blog['_id'])
-
-    if flask_login.current_user.is_authenticated:
-        return render_template('blogs/index.html', blogs=blogs)
-    else:
-        return render_template('blogs/guest-view.html', blogs=blogs)
+            user = db.users.find_one({'_id': ObjectId(blog['created_by'])})
+            blog['created_by'] = user['name']
+    return render_template('blogs/guest-view.html', blogs=blogs)
     
+@blog_bp.route('/own')
+def my_blogs():
+    if current_user.is_authenticated:
+        blogs = list(db.blogs.find({"created_by": current_user.id}))
+
+        for blog in blogs:
+            if '_id' in blog:
+                blog['_id'] = str(blog['_id'])
+        return render_template('blogs/index.html', blogs=blogs)
+    return redirect( 'auth_bp.login' )
+
 @blog_bp.route("/view/<id>")
 def view_blog(id):
     blog = db.blogs.find_one_or_404({"_id": ObjectId(id)})
@@ -31,7 +38,7 @@ def view_blog(id):
     
 
 @blog_bp.route('/create', methods=['POST', 'GET'])
-@flask_login.login_required
+@login_required
 def create():
     if request.method == "POST":
         title = request.form.get('name')
@@ -50,7 +57,8 @@ def create():
                 "name": title,
                 "description": description,
                 "image": image_path,
-                "date_created": datetime.utcnow()
+                "date_created": datetime.utcnow(),
+                "created_by": current_user.id
             })
             flash("Blog successfully created", "success")
         except Exception as e:
@@ -61,7 +69,7 @@ def create():
     return render_template( 'blogs/create.html' )
 
 @blog_bp.route("/delete_blog/<id>")
-@flask_login.login_required
+@login_required
 def delete_blog(id):
     db.blogs.find_one_and_delete({"_id": ObjectId(id)})
     flash("Blog successfully deleted", "danger")
@@ -69,8 +77,12 @@ def delete_blog(id):
 
 
 @blog_bp.route("/update_blog/<id>", methods = ['POST', 'GET'])
-@flask_login.login_required
+@login_required
 def update_blog(id):
+    existing_blog = db.blogs.find_one({"_id": ObjectId(id)})
+    if existing_blog['created_by'] != ObjectId(current_user.id):
+        flash('You can edit your own post only', 'error')
+        return redirect( url_for('blog_bp.index') )
     if request.method == "POST":
         title = request.form.get('name')
         description = request.form.get('description')
@@ -82,7 +94,6 @@ def update_blog(id):
                 image.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
                 image_path = filename
             else:
-                existing_blog = db.blogs.find_one({"_id": ObjectId(id)})
                 if existing_blog:
                     image_path = existing_blog.get('image')
 

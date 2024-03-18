@@ -11,12 +11,13 @@ def find_user(email):
     return None
 
 class User:
-    def __init__(self, id, name, email, password, role):
+    def __init__(self, id, name, email, password, role, profile_image = ''):
         self.id = id
         self.name = name
         self.email = email
         self.password = password
         self.role = role
+        self.profile_image = profile_image
     
     def register(self):
         user =  db.users.insert_one({

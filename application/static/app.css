@@ -39,6 +39,62 @@ div.dt-container .dt-search input:focus-visible {
     cursor: pointer;
 }
 
+.profile-card {
+    max-width: 600px;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+}
+
+.profile-img {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 50%;
+    display: block;
+    margin: auto;
+}
+
+.blogs-all .blog .card {
+    height: 450px !important;
+    justify-content: space-between;
+}
+
+.blogs-all .blog .card .card-body {
+    max-height: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+}
+
+.blogs-all .blog .card .card-body .card-text {
+    max-height: 70px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.blogs-all .blog .card .card-img-top {
+    max-height: 300px;
+    object-fit: cover;
+}
+
+label#edit-picture-btn {
+    top: 17px;
+    right: 13px;
+    cursor: pointer;
+    width: 30px;
+    transform: rotate(97deg);
+    height: 30px;
+    background: #747474;
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 a:hover,
 a {
     color: inherit;
@@ -78,6 +134,13 @@ p.card-text {
 
 #myTable {
     min-width: 1000px;
+}
+
+.blogs-all .blog .card .card-body .profile-img {
+    width: 30px;
+    height: 30px;
+    float: left;
+    align-self: center;
 }
 
 ::-webkit-scrollbar {

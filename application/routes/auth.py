@@ -1,11 +1,14 @@
-from flask import Blueprint, request, url_for, render_template, flash, redirect, jsonify
+from flask import Blueprint, request, url_for, render_template, flash, redirect
 from application import db
 from datetime import datetime
+from werkzeug.utils import secure_filename
 from bson import ObjectId
 from ..models import User
-from flask_login import login_required, login_user, logout_user
+from application import app
+import os
+from ..authentication import load_user
+from flask_login import login_required, login_user, logout_user, current_user
 from application import bcrypt
-from flask_mail import Message
 from ..mail_config import send_registration_email
 
 auth_bp = Blueprint('auth_bp', __name__)
@@ -86,3 +89,32 @@ def dashboard():
 def logout():
     logout_user()
     return redirect( url_for( 'auth_bp.login' ) ) 
+
+@auth_bp.route('edit-profile',  methods = ['POST', 'GET'])
+@login_required
+def edit_profile():
+    if request.method == "POST":
+        name = request.form.get('name')
+        email = request.form.get('email')
+        image = request.files.get('profile-picture')
+        if image is None or image.filename == '':
+            image_path = current_user.profile_image
+        else:
+            filename = secure_filename(image.filename)
+            image.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            image_path = filename
+        user_id = ObjectId(current_user.id)
+
+        db.users.find_one_and_update({"_id": ObjectId(user_id)}, {"$set": {
+            "name": name,
+            "email": email,
+            "profile_image": image_path,
+        }})
+
+        load_user(email=email)
+
+        flash("Your profile has been updated", "success")
+        return redirect(request.url)
+
+    else:
+        return render_template( 'users/edit-profile.html' )

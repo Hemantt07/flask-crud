@@ -43,6 +43,16 @@ $( '#openai-form' ).on( 'submit', function(e){
     }
 } )
 
+if ( $('input[type=file]').length > 0 ) {
+    $('input[type=file]').each(function(){
+        $(this).on( 'change', function(event){
+            const file = event.target.files[0];
+            let url = window.URL.createObjectURL(file)
+            $(this).siblings('img').attr('src', url)
+        } )
+    })
+}
+
 if ( $('#openai-form').length == 0 ) {
  
     $('form button[type-submit]').on( 'click', function(e){
@@ -92,5 +102,4 @@ if ( $('#openai-form').length == 0 ) {
             form.submit()
         }
     } )
-   
 }

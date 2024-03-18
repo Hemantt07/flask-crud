@@ -17,6 +17,7 @@ def index():
             blog['_id'] = str(blog['_id'])
             user = db.users.find_one({'_id': ObjectId(blog['created_by'])})
             blog['created_by'] = user['name']
+            blog['user_image'] = user['profile_image'] if 'profile_image' in user else ''
     return render_template('blogs/guest-view.html', blogs=blogs)
     
 @blog_bp.route('/own')

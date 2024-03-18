@@ -14,6 +14,6 @@ login_manager.login_message_category = "info"
 def load_user(email):
     user = db.users.find_one_or_404({"email": email})
     if user:
-        user = User(user['_id'], user['name'], user['email'], user['password'], user['role'])
+        user = User(user['_id'], user['name'], user['email'], user['password'], user['role'], user['profile_image'])
         return user
     return None

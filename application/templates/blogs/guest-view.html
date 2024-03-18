@@ -5,11 +5,11 @@
 <div class="container my-5">
     <h2 class="mb-5 text-center">Blog Posts</h2>
     {% include 'partials/flash.html' %}
-    <div class="position-relative">
+    <div class="position-relative blogs-all">
         <div class="row">        
             {% if blogs|length > 0 %}
                 {% for blog in blogs %}
-                    <div class="col-lg-4 col-sm-6 mx-auto mb-3 h-100">
+                    <div class="blog col-lg-4 col-sm-6 mx-auto mb-3 h-100">
                         <a href="{{ url_for( 'blog_bp.view_blog', id=blog['_id'] ) }}" class="text-decoration-none">
                             <div class="card mb-3 pointer-cursor">
                                 <img src="{{ url_for('static', filename='uploads/' + blog['image']) }}" alt="{{ blog['name'] }}" 
@@ -19,7 +19,13 @@
                                 <p class="card-text">{{ blog['description'] }}</p>
                                 <p class="mb-0 d-flex justify-content-between">
                                     <small class="text-muted">{{ blog['date_created'].strftime('%d/%m/%Y') }}</small>
-                                    <small class="text-muted">{{ blog['created_by'] }}</small>
+                                    <small class="text-muted d-flex align-items-center">
+                                        <img src="{{ url_for( 'static', filename='uploads/' + blog['user_image'] ) }}" 
+                                            alt="{{ current_user.name }}" 
+                                            class="profile-img border-round"
+                                            onerror="this.src='https://via.placeholder.com/150'">
+                                        <span class="ms-1">{{ blog['created_by'] }}</span>
+                                    </small>
                                 </p>
                                 </div>
                             </div>
